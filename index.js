@@ -126,11 +126,6 @@ function deflate (index) {
   return YoloIndex.encode({ levels })
 }
 
-function preloadBlock (core, index) {
-  if (core.replicator._blocks.get(index)) return
-  core.get(index).catch(safetyCatch)
-}
-
 class TreeNode {
   constructor (block, keys, children, offset) {
     this.block = block
@@ -149,19 +144,22 @@ class TreeNode {
     if (!core) return
 
     const bitfield = core.core.bitfield
+    const blocks = []
 
     for (let i = 0; i < this.keys.length; i++) {
       const k = this.keys[i]
       if (k.value) continue
       if (k.seq >= core.signedLength || (bitfield && bitfield.get(k.seq))) continue
-      preloadBlock(core, k.seq)
+      blocks.push(k.seq)
     }
     for (let i = 0; i < this.children.length; i++) {
       const c = this.children[i]
       if (c.value) continue
       if (c.seq >= core.signedLength || (bitfield && bitfield.get(c.seq))) continue
-      preloadBlock(core, c.seq)
+      blocks.push(c.seq)
     }
+
+    if (blocks.length) core.download({ blocks })
   }
 
   async insertKey (key, value, child, node, encoding, cas) {
@@ -762,6 +760,7 @@ class Batch {
     this.rootSeq = 0
     this.root = null
     this.length = 0
+    this.checkout = options.checkout === undefined ? -1 : options.checkout
     this.options = options
     this.locked = null
     this.batchLock = batchLock
@@ -787,7 +786,8 @@ class Batch {
   }
 
   get version () {
-    return Math.max(1, this.tree._checkout ? this.tree._checkout : this.core.length + this.length)
+    if (this.checkout !== -1) return Math.max(1, this.checkout)
+    return Math.max(1, this.tree._checkout || (this.core.length + this.length))
   }
 
   async getRoot (ensureHeader) {
@@ -800,7 +800,7 @@ class Batch {
         }))
       }
     }
-    if (this.tree._checkout === 0 && this.shouldUpdate) {
+    if (this.tree._checkout === 0 && this.checkout === -1 && this.shouldUpdate) {
       if (this.updating === null) this.updating = this.core.update()
       await this.updating
     }
