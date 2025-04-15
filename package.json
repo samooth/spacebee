@@ -1,6 +1,6 @@
 {
   "name": "spacebee",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An append-only B-tree running on a Spacecore.",
   "main": "index.js",
   "files": [
