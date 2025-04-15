@@ -9,23 +9,23 @@
     "iterators/**.js"
   ],
   "dependencies": {
-    "b4a": "^1.6.0",
-    "codecs": "^3.0.0",
-    "debounceify": "^1.0.0",
+    "b4a": "^1.6.7",
+    "codecs": "^3.1.0",
+    "debounceify": "^1.1.0",
     "spacecore-errors": "^0.0.1",
     "mutexify": "^1.4.0",
     "protocol-buffers-encodings": "^1.2.0",
     "rache": "^1.0.0",
-    "ready-resource": "^1.0.0",
+    "ready-resource": "^1.1.2",
     "safety-catch": "^1.0.2",
-    "streamx": "^2.12.4",
-    "unslab": "^1.2.0"
+    "streamx": "^2.22.0",
+    "unslab": "^1.3.0"
   },
   "devDependencies": {
-    "brittle": "^3.1.0",
-    "bitspacecore": "^0.0.6",
+    "brittle": "^3.13.1",
+    "bitspacecore": "^0.0.8",
     "protocol-buffers": "^4.2.0",
-    "standard": "^17.0.0",
+    "standard": "^17.1.2",
     "sub-encoder": "^1.0.6",
     "tree-to-string": "^1.1.1"
   },
