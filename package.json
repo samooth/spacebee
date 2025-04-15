@@ -1,6 +1,6 @@
 {
   "name": "spacebee",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "An append-only B-tree running on a Spacecore.",
   "main": "index.js",
   "files": [
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "brittle": "^3.13.1",
-    "bitspacecore": "^0.0.8",
+    "bitspacecore": "latest",
     "protocol-buffers": "^4.2.0",
     "standard": "^17.1.2",
     "sub-encoder": "^1.0.6",
