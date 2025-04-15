@@ -1,22 +1,22 @@
-# Hyperbee 🐝
+# Spacebee 🐝
 
-[See API docs at docs.holepunch.to](https://docs.holepunch.to/building-blocks/hyperbee)
+[See API docs at docs.space.bsv.direct](https://docs.space.bsv.direct/building-blocks/spacebee)
 
-An append-only B-tree running on a Hypercore. Allows sorted iteration and more.
+An append-only B-tree running on a Spacecore. Allows sorted iteration and more.
 
 ```
-npm install hyperbee
+npm install spacebee
 ```
 
 ## Usage
 
 ```js
-const Hyperbee = require('hyperbee')
-const Hypercore = require('hypercore')
+const Spacebee = require('spacebee')
+const Spacecore = require('bitspacecore')
 const RAM = require('random-access-memory')
 
-const core = new Hypercore(RAM)
-const db = new Hyperbee(core, { keyEncoding: 'utf-8', valueEncoding: 'binary' })
+const core = new Spacecore(RAM)
+const db = new Spacebee(core, { keyEncoding: 'utf-8', valueEncoding: 'binary' })
 
 // If you own the core
 await db.put('key1', 'value1')
@@ -53,9 +53,9 @@ It works with sparse cores, only a small subset of the full core is downloaded t
 
 ## API
 
-#### `const db = new Hyperbee(core, [options])`
+#### `const db = new Spacebee(core, [options])`
 
-Make a new Hyperbee instance. `core` should be a [Hypercore](https://github.com/holepunchto/hypercore).
+Make a new Spacebee instance. `core` should be a [Spacecore](https://github.com/samooth/spacecore).
 
 `options` include:
 ```js
@@ -79,7 +79,7 @@ Fully close this bee, including its core.
 
 #### `db.core`
 
-The underlying Hypercore backing this bee.
+The underlying Spacecore backing this bee.
 
 #### `db.version`
 
@@ -148,7 +148,7 @@ function cas (prev, next) {
 
 Get a key's value. Returns `null` if key doesn't exists.
 
-`seq` is the Hypercore index at which this key was inserted.
+`seq` is the Spacecore index at which this key was inserted.
 
 #### `await db.del(key, [options])`
 
@@ -188,7 +188,7 @@ function cas (prev) {
 
 Get the key and value from a block number.
 
-`seq` is the Hypercore index. Returns `null` if block doesn't exists.
+`seq` is the Spacecore index. Returns `null` if block doesn't exists.
 
 #### `const stream = db.replicate(isInitiatorOrStream)`
 
@@ -353,7 +353,7 @@ Shorthand for getting a checkout for the current version.
 
 Create a sub-database where all entries will be prefixed by a given value.
 
-This makes it easy to create namespaces within a single Hyperbee.
+This makes it easy to create namespaces within a single Spacebee.
 
 `options` include:
 ```js
@@ -366,7 +366,7 @@ This makes it easy to create namespaces within a single Hyperbee.
 
 For example:
 ```js
-const root = new Hyperbee(core)
+const root = new Spacebee(core)
 const sub = root.sub('a')
 
 // In root, this will have the key ('a' + separator + 'b')
@@ -382,12 +382,12 @@ Returns the header contained in the first block. Throws if undecodable.
 
 `options` are the same as the `core.get` method.
 
-#### `const isHyperbee = await Hyperbee.isHyperbee(core, [options])`
+#### `const isSpacebee = await Spacebee.isSpacebee(core, [options])`
 
-Returns `true` if the core contains a Hyperbee, `false` otherwise.
+Returns `true` if the core contains a Spacebee, `false` otherwise.
 
 This requests the first block on the core, so it can throw depending on the options.
 
 `options` are the same as the `core.get` method.
 
-[core-replicate-docs]: https://github.com/holepunchto/hypercore#const-stream--corereplicateisinitiatororreplicationstream
+[core-replicate-docs]: https://github.com/samooth/spacecore#const-stream--corereplicateisinitiatororreplicationstream

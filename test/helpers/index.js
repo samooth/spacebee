@@ -1,5 +1,5 @@
-const Hyperbee = require('../../')
-const Hypercore = require('hypercore')
+const Spacebee = require('../../')
+const Spacecore = require('bitspacecore')
 
 module.exports = {
   toString,
@@ -79,8 +79,8 @@ async function toString (tree) {
 async function clone (t, db, opts) {
   opts = { keyEncoding: 'utf-8', valueEncoding: 'utf-8', ...opts }
   const storage = await t.tmp()
-  const clone = new Hypercore(storage, db.core.key)
-  const cdb = new Hyperbee(clone, opts)
+  const clone = new Spacecore(storage, db.core.key)
+  const cdb = new Spacebee(clone, opts)
   t.teardown(() => cdb.close())
   return cdb
 }
@@ -88,8 +88,8 @@ async function clone (t, db, opts) {
 async function create (t, opts) {
   opts = { keyEncoding: 'utf-8', valueEncoding: 'utf-8', ...opts }
   const storage = await t.tmp()
-  const core = new Hypercore(storage)
-  const db = new Hyperbee(core, opts)
+  const core = new Spacecore(storage)
+  const db = new Spacebee(core, opts)
   t.teardown(() => db.close())
   return db
 }
@@ -97,7 +97,7 @@ async function create (t, opts) {
 async function createStoredCore (t) {
   const storage = await t.tmp()
   return function (...args) {
-    const core = new Hypercore(storage, ...args)
+    const core = new Spacecore(storage, ...args)
     t.teardown(() => core.close())
     return core
   }
@@ -108,14 +108,14 @@ async function createStored (t) {
 
   return function (...args) {
     const core = create(...args)
-    const db = new Hyperbee(core)
+    const db = new Spacebee(core)
     t.teardown(() => db.close())
     return db
   }
 }
 
 async function createCore (t) {
-  const core = new Hypercore(await t.tmp())
+  const core = new Spacecore(await t.tmp())
   t.teardown(() => core.close())
   return core
 }

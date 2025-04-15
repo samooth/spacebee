@@ -1,0 +1,16 @@
+lockfileVersion: 5.4
+
+specifiers:
+  split2: ^4.1.0
+
+dependencies:
+  split2: registry.npmjs.org/split2/4.2.0
+
+packages:
+
+  registry.npmjs.org/split2/4.2.0:
+    resolution: {integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/split2/-/split2-4.2.0.tgz}
+    name: split2
+    version: 4.2.0
+    engines: {node: '>= 10.x'}
+    dev: false

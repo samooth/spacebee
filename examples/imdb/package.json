@@ -1,11 +1,9 @@
 {
-  "name": "hyperb-imdb-example",
+  "name": "spaceb-imdb-example",
   "version": "0.0.0",
   "description": "example data",
   "main": "import.js",
   "dependencies": {
-    "hypercore": "^10.0.0",
-    "hyperswarm": "^4.2.0",
     "split2": "^4.1.0"
   },
   "scripts": {

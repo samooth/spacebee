@@ -2,7 +2,7 @@ const test = require('brittle')
 const b4a = require('b4a')
 const { create, collect, createCore } = require('./helpers')
 
-const Hyperbee = require('..')
+const Spacebee = require('..')
 
 test('basic properties', async function (t) {
   const db = await create(t)
@@ -499,30 +499,30 @@ test('get header out', async function (t) {
   await db.ready()
   await db.put('hi', 'ho')
   const h = await db.getHeader()
-  t.is(h.protocol, 'hyperbee')
+  t.is(h.protocol, 'spacebee')
 })
 
-test('isHyperbee throws for empty hypercore and wait false', async function (t) {
+test('isSpacebee throws for empty spacecore and wait false', async function (t) {
   const core = await createCore(t)
-  await t.exception(Hyperbee.isHyperbee(core, { wait: false }), 'Block is not available')
+  await t.exception(Spacebee.isSpacebee(core, { wait: false }), 'Block is not available')
 })
 
-test('isHyperbee is false for non-empty hypercore', async function (t) {
+test('isSpacebee is false for non-empty spacecore', async function (t) {
   const core = await createCore(t)
   await core.append('something')
-  t.is(await Hyperbee.isHyperbee(core), false)
+  t.is(await Spacebee.isSpacebee(core), false)
 })
 
-test('isHyperbee is false for hypercore with 1st entry hyperbee', async function (t) {
+test('isSpacebee is false for spacecore with 1st entry spacebee', async function (t) {
   const core = await createCore(t)
-  await core.append('hyperbee')
-  t.is(await Hyperbee.isHyperbee(core), false)
+  await core.append('spacebee')
+  t.is(await Spacebee.isSpacebee(core), false)
 })
 
-test('isHyperbee is true for core of actual hyperbee', async function (t) {
+test('isSpacebee is true for core of actual spacebee', async function (t) {
   const db = await create(t)
   await db.put('hi', 'ho') // Adds the header on the first put
-  t.ok(await Hyperbee.isHyperbee(db.core))
+  t.ok(await Spacebee.isSpacebee(db.core))
 })
 
 test('supports encodings in checkout', async function (t) {

@@ -1,7 +1,7 @@
 {
-  "name": "hyperbee",
-  "version": "2.23.0",
-  "description": "An append-only B-tree running on a Hypercore.",
+  "name": "spacebee",
+  "version": "0.0.1",
+  "description": "An append-only B-tree running on a Spacecore.",
   "main": "index.js",
   "files": [
     "index.js",
@@ -12,7 +12,7 @@
     "b4a": "^1.6.0",
     "codecs": "^3.0.0",
     "debounceify": "^1.0.0",
-    "hypercore-errors": "^1.0.0",
+    "spacecore-errors": "^0.0.1",
     "mutexify": "^1.4.0",
     "protocol-buffers-encodings": "^1.2.0",
     "rache": "^1.0.0",
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "brittle": "^3.1.0",
-    "hypercore": "^11.0.0",
+    "bitspacecore": "^0.0.3",
     "protocol-buffers": "^4.2.0",
     "standard": "^17.0.0",
     "sub-encoder": "^1.0.6",
@@ -35,12 +35,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/holepunchto/hyperbee.git"
+    "url": "https://github.com/samooth/spacebee.git"
   },
-  "author": "Mathias Buus (@mafintosh)",
+  "author": "Mathias Buus (@samooth)",
+  "contributors": [
+    {
+      "name": "Tomás Díaz",
+      "email": "tomas@bsv.direct",
+      "url": "https://github.com/samooth"
+    }
+  ],  
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/holepunchto/hyperbee/issues"
+    "url": "https://github.com/samooth/spacebee/issues"
   },
-  "homepage": "https://github.com/holepunchto/hyperbee"
+  "homepage": "https://github.com/samooth/spacebee"
 }

@@ -1,6 +1,6 @@
 const test = require('brittle')
 const b4a = require('b4a')
-const Hypercore = require('hypercore')
+const Hypercore = require('bitspacecore')
 const Rache = require('rache')
 
 const Hyperbee = require('../index')

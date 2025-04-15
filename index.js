@@ -14,7 +14,7 @@ const HistoryIterator = require('./iterators/history')
 const DiffIterator = require('./iterators/diff')
 const Extension = require('./lib/extension')
 const { YoloIndex, Node, Header } = require('./lib/messages')
-const { BLOCK_NOT_AVAILABLE, DECODING_ERROR } = require('hypercore-errors')
+const { BLOCK_NOT_AVAILABLE, DECODING_ERROR } = require('spacecore-errors')
 
 const T = 5
 const MIN_KEYS = T - 1
@@ -361,7 +361,7 @@ class BatchEntry extends BlockEntry {
   }
 }
 
-class Hyperbee extends ReadyResource {
+class Spacebee extends ReadyResource {
   constructor (core, opts = {}) {
     super()
     // this.feed is now deprecated, and will be this.core going forward
@@ -652,7 +652,7 @@ class Hyperbee extends ReadyResource {
 
   _makeSnapshot () {
     if (this._sessions === false) return this.core
-    // TODO: better if we could encapsulate this in hypercore in the future
+    // TODO: better if we could encapsulate this in spacecore in the future
     return (this._checkout <= this.core.length || this._checkout <= 1) ? this.core.snapshot() : this.core.session({ snapshot: false })
   }
 
@@ -664,7 +664,7 @@ class Hyperbee extends ReadyResource {
       ? this.core
       : (version <= this.core.length || version <= 1) ? this.core.snapshot() : this.core.session({ snapshot: false })
 
-    return new Hyperbee(snap, {
+    return new Spacebee(snap, {
       _view: true,
       _sub: false,
       prefix: this.prefix,
@@ -690,7 +690,7 @@ class Hyperbee extends ReadyResource {
     const valueEncoding = codecs(opts.valueEncoding || this.valueEncoding)
     const keyEncoding = codecs(opts.keyEncoding || this._unprefixedKeyEncoding)
 
-    return new Hyperbee(this.core, {
+    return new Spacebee(this.core, {
       _view: true,
       _sub: true,
       prefix,
@@ -736,14 +736,14 @@ class Hyperbee extends ReadyResource {
     return this.core.close()
   }
 
-  static async isHyperbee (core, opts) {
+  static async isSpacebee (core, opts) {
     await core.ready()
 
     const blk0 = await core.get(0, opts)
     if (blk0 === null) throw BLOCK_NOT_AVAILABLE()
 
     try {
-      return Header.decode(blk0).protocol === 'hyperbee'
+      return Header.decode(blk0).protocol === 'spacebee'
     } catch (err) { // undecodable
       return false
     }
@@ -782,7 +782,7 @@ class Batch {
   }
 
   async lock () {
-    if (this.tree.readonly) throw new Error('Hyperbee is marked as read-only')
+    if (this.tree.readonly) throw new Error('Spacebee is marked as read-only')
     if (this.locked === null) this.locked = await this.tree.lock()
   }
 
@@ -795,7 +795,7 @@ class Batch {
     if (ensureHeader) {
       if (this.core.length === 0 && this.core.writable && !this.tree.readonly) {
         await this.core.append(Header.encode({
-          protocol: 'hyperbee',
+          protocol: 'spacebee',
           metadata: this.tree.metadata
         }))
       }
@@ -1626,7 +1626,7 @@ function copyEntry (entry) {
   let value = entry.value
   let index = entry.index
 
-  // key, value and index all refer to the same buffer (one hypercore block)
+  // key, value and index all refer to the same buffer (one spacecore block)
   // If together they are larger than half the buffer's byteLength,
   // this means that they got their own private slab (see Buffer.allocUnsafe docs)
   // so no need to unslab
@@ -1662,4 +1662,4 @@ function sameValue (a, b) {
 
 function noop () {}
 
-module.exports = Hyperbee
+module.exports = Spacebee
