@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "brittle": "^3.1.0",
-    "bitspacecore": "^0.0.3",
+    "bitspacecore": "^0.0.6",
     "protocol-buffers": "^4.2.0",
     "standard": "^17.0.0",
     "sub-encoder": "^1.0.6",
