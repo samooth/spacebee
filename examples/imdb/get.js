@@ -1,9 +1,9 @@
-const Hyperbee = require('../../')
-const Hypercore = require('bitspacecore')
-const Hyperswarm = require('spaceswarm')
+const Spacebee = require('../../')
+const Spacecore = require('bitspacecore')
+const Spaceswarm = require('spaceswarm')
 
-const db = new Hyperbee(new Hypercore('./db-clone', '95c4bff66d3faa78cf8c70bd070089e5e25b4c9bcbbf6ce5eb98e47b3129ca93'))
-const swarm = new Hyperswarm()
+const db = new Spacebee(new Spacecore('./db-clone', '95c4bff66d3faa78cf8c70bd070089e5e25b4c9bcbbf6ce5eb98e47b3129ca93'))
+const swarm = new Spaceswarm()
 
 swarm.on('connection', c => db.feed.replicate(c))
 

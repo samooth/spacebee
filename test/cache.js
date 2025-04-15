@@ -1,15 +1,15 @@
 const test = require('brittle')
 const b4a = require('b4a')
-const Hypercore = require('bitspacecore')
+const Spacecore = require('bitspacecore')
 const Rache = require('rache')
 
-const Hyperbee = require('../index')
+const Spacebee = require('../index')
 
 test('entries are not cached using buffers from default slab', async function (t) {
   const dir = await t.tmp()
 
-  const core = new Hypercore(dir)
-  const db = new Hyperbee(core)
+  const core = new Spacecore(dir)
+  const db = new Spacebee(core)
 
   await db.put(b4a.from('smallKey'), b4a.from('smallValue'))
 
@@ -31,8 +31,8 @@ test('entries are not cached using buffers from default slab', async function (t
 
 test('node and key caches are subbed from a passed-in rache', async t => {
   const globalCache = new Rache()
-  const core = new Hypercore(await t.tmp(), { globalCache })
-  const db = new Hyperbee(core)
+  const core = new Spacecore(await t.tmp(), { globalCache })
+  const db = new Spacebee(core)
 
   t.is(globalCache.globalSize, 0, 'sanity check')
   await db.put('some', 'thing')
